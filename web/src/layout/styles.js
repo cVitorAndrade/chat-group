@@ -8,22 +8,23 @@ export const Container = styled.div`
     grid-template-columns: 34rem auto;
     grid-template-areas: "side-bar chat";
 
-    background-color: red;
+    *.none {
+        display: none;
+    }
 `;
 
 export const SideBar = styled.div`
     grid-area: side-bar;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
 `;
 
 export const AllChannels = styled.div`
     width: 100%;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 `;
 
 export const Header = styled.header`
@@ -123,7 +124,7 @@ export const ChannelList = styled.ul`
     padding: 0 3.2rem;
 `;
 
-export const ChannelItem = styled.li`
+export const Channel = styled.li`
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -206,7 +207,9 @@ export const Profile = styled.div`
             border-radius: .7rem;
 
             img {
-                width: 100%;
+                width: 4.2rem;
+                height: 4.2rem;
+                
                 border-radius: inherit;
             }
         }
@@ -226,6 +229,127 @@ export const Profile = styled.div`
     > svg {
         color: ${ ({ theme }) => theme.COLORS.GRAY_800};
     }
+`;
+
+export const SelectedChannel = styled.div`
+    width: 100%;
+`;
+
+export const Back = styled.div`
+    padding: 1.7rem 1.6rem;
+    
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+    > div  {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 2px .7rem;
+        
+        cursor: pointer;
+
+        color: ${ ({ theme }) => theme.COLORS.WHITE_800};
+    }
+
+    > p {
+        font-size: 1.8rem;
+        font-weight: 700;
+
+        line-height: 2.4rem;
+        letter-spacing: -3.5%;
+
+        color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+    }
+`;
+
+export const ChannelDescription = styled.div`
+    padding: 2.5rem 3.2rem 4.3rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+
+    > h2,
+    p {
+        font-size: 1.8rem;
+        font-weight: 700;
+
+        line-height: 2.4rem;
+        letter-spacing: -3.5%;
+
+        color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+
+        text-transform: uppercase;
+    }
+
+    > p {
+        text-transform: none;
+        font-weight: 400;
+    }
+`;
+
+export const ChannelMembers = styled.div`
+    padding: 0 3.2rem;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    > h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+
+        line-height: 2.4rem;
+        letter-spacing: -3.5%;
+
+        color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+
+        text-transform: uppercase;
+    }
+
+    > ul {
+        display: flex;
+        flex-direction: column;
+        gap: 3.2rem;
+    }
+`;
+
+export const Member = styled.li`
+    display: flex;
+    align-items: center;
+    gap: 2.8rem;
+
+    > div {
+        width: 4.2rem;
+        height: 4.2rem;
+
+        border-radius: .7rem;
+
+        img {
+            width: 4.2rem;
+            height: 4.2rem;
+
+            object-fit: cover;
+
+            border-radius: inherit;
+        }
+    }
+
+    > p {
+        font-size: 1.8rem;
+        font-weight: 700;
+
+        line-height: 2.4rem;
+        letter-spacing: -3.5%;
+
+        color: ${ ({ theme }) => theme.COLORS.GRAY_800};
+    }
+
 `;
 
 export const Chat = styled.div`
