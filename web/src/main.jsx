@@ -6,10 +6,15 @@ import theme from './styles/theme'
 
 import GlobalStyle from './styles/global'
 
+import { Layout } from './layout'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <Layout>
+
+      </Layout>
     </ThemeProvider>
   </React.StrictMode>,
 )
