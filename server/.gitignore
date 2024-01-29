@@ -1,2 +1,4 @@
 node_modules
 src/database/database.db
+src/controllers
+src/routes
