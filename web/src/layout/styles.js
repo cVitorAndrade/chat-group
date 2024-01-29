@@ -195,7 +195,9 @@ export const Profile = styled.div`
 
     padding: 1.5rem 3.2rem 1.8rem;
 
-    > div {
+    position: relative;
+
+    > div:first-child {
         display: flex;
         align-items: center;
         gap: 2.8rem;
@@ -209,7 +211,7 @@ export const Profile = styled.div`
             img {
                 width: 4.2rem;
                 height: 4.2rem;
-                
+
                 border-radius: inherit;
             }
         }
@@ -228,6 +230,71 @@ export const Profile = styled.div`
 
     > svg {
         color: ${ ({ theme }) => theme.COLORS.GRAY_800};
+        
+        cursor: pointer;
+    }
+`;
+
+export const UserActions = styled.div`
+    background-color: ${ ({ theme }) => theme.COLORS.BLACK_700};
+
+    width: 60%;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    padding: 1.5rem;
+    padding-left: 1.2rem;
+
+    border-radius: 1.2rem;
+    border: 1px solid ${ ({ theme }) => theme.COLORS.GRAY_600};
+
+    position: absolute;
+    bottom: 65%;
+    right: 6%;
+`;
+
+export const Action = styled.div`
+    padding: 1rem;
+    width: 100%;
+
+    display: flex;
+    gap: 1rem;
+    
+    border-radius: .8rem;
+
+    color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+
+    transition: background .3s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    &:hover {
+        cursor: pointer;
+
+        background-color: ${ ({ theme }) => theme.COLORS.GRAY_600};
+    }
+
+    &.logout {
+        color: ${ ({ theme }) => theme.COLORS.RED_900};
+
+        padding: 2.4rem 1rem 1rem;
+
+        border-top: 1px solid ${ ({ theme }) => theme.COLORS.GRAY_600};
+        border-radius: 0;
+
+        &:hover {
+            background-color: transparent;
+        }
+
+    }
+
+    > span {
+        font-weight: 500;
+        font-size: 1.2rem;
+
+        line-height: 1.6rem;
+
+        letter-spacing: -3.5%;
     }
 `;
 

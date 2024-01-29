@@ -11,7 +11,9 @@ import { Container,
         Back,
         ChannelDescription,
         ChannelMembers,
-        Member
+        Member,
+        UserActions,
+        Action
     } from "./styles";
 
 import { LuPlus } from "react-icons/lu";
@@ -20,17 +22,26 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { MdArrowBackIosNew } from "react-icons/md";
 
+import { FaCircleUser } from "react-icons/fa6";
+import { PiMountainsBold } from "react-icons/pi";
+import { RiLogoutBoxRLine } from "react-icons/ri";
+
 import xanteNeal from "./assets/Xanthe-Neal.jpg";
 import nellieFrancis from "./assets/Nellie-Francis.jpg";
 import shaunnaFirth from "./assets/Shaunna-Firth.jpg";
 import annalieseHuynh from "./assets/Annaliese-Huynh.jpg";
 import denzelBarret from "./assets/Denzel-Barrett.jpg";
 
+import { useState } from "react";
+
 export function Layout ( { children }) {
+    const [viewAllChannels, setViewAllChannels] = useState(true);
+    const [viewUserActions, setViewUserActions] = useState(false);
+
     return(
         <Container>
             <SideBar>
-                <AllChannels className="none">
+                <AllChannels className={ viewAllChannels ? "" : "none" }>
                     <Header>
                         <span>Channels</span>
                         <div className="new-chat">
@@ -58,7 +69,9 @@ export function Layout ( { children }) {
                     </Search>
 
                     <ChannelList>
-                        <Channel>
+                        <Channel
+                            onClick={ () => setViewAllChannels(false) }
+                        >
                             <div>
                                 <p>
                                     FD
@@ -112,8 +125,10 @@ export function Layout ( { children }) {
                     </ChannelList>
                 </AllChannels>
 
-                <SelectedChannel>
-                    <Back>
+                <SelectedChannel className={ viewAllChannels ? "none" : "" }>
+                    <Back
+                        onClick={ () => setViewAllChannels(true) }
+                    >
                         <div>
                             <MdArrowBackIosNew
                                 size={24}
@@ -202,13 +217,46 @@ export function Layout ( { children }) {
 
                     <MdKeyboardArrowDown
                         size={20}
+                        onClick={ () => setViewUserActions(prevValue => !prevValue)}
                     />
+
+                    <UserActions className={ viewUserActions ? "" : "none"}>
+                        <Action>
+                            <FaCircleUser
+                                size={15}
+                            />
+
+                            <span>
+                                My Profile
+                            </span>
+                        </Action>
+
+                        <Action>
+                            <PiMountainsBold
+                                size={15}
+                            />
+
+                            <span>
+                                Tweeter
+                            </span>
+                        </Action>
+
+                        <Action className="logout">
+                            <RiLogoutBoxRLine
+                                size={15}
+                            />
+
+                            <span>
+                                Logout
+                            </span>
+                        </Action>
+                    </UserActions>
+
                 </Profile>
                 
             </SideBar>
 
             <Chat>
-                
             </Chat>
 
         </Container>
