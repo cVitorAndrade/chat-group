@@ -60,6 +60,20 @@ export function Layout({ children }) {
         })
     }
 
+    const [selectedChannelMembers, setSelectedChannelMembers] = useState([]);
+    const [selectedChannelName, setSelectedChannelName] = useState("");
+    const [selectedChannelDescription, setSelectedChannelDescription] = useState("");
+
+    const handleSelectChannel = (id) => {
+        api.get(`/my_channels?channel_id=${id}`).then( ({ data }) => {
+            const { name, description, members } = data;
+            setSelectedChannelMembers(members);
+            setSelectedChannelName(name);
+            setSelectedChannelDescription(description);
+            setViewAllChannels(false);
+        });
+    }
+ 
     const handleCreateChannel = () => {
         if (newChannelName.trim() === "" || newChannelDescription.trim() === "") {
             return alert("It is necessary to fill in all fields");
@@ -137,7 +151,7 @@ export function Layout({ children }) {
                                 return (
                                     <Channel
                                         key={myChannel.id}
-                                        onClick={ () => setViewAllChannels(false) }
+                                        onClick={ () => handleSelectChannel(myChannel.id) }
                                     >
                                         <div>
                                             <p>
@@ -171,11 +185,11 @@ export function Layout({ children }) {
 
                     <ChannelDescription>
                         <h2>
-                            Front-end developers
+                            { selectedChannelName }
                         </h2>
 
                         <p>
-                            Pellentesque sagittis elit enim, sit amet ultrices tellus accumsan quis. In gravida mollis purus, at interdum arcu tempor non
+                            { selectedChannelDescription }
                         </p>
                     </ChannelDescription>
 
@@ -185,50 +199,22 @@ export function Layout({ children }) {
                         </h2>
 
                         <ul>
-                            <Member>
-                                <div>
-                                    <img src={xanteNeal} alt="" />
-                                </div>
-                                <p>
-                                    Xanthe Neal
-                                </p>
-                            </Member>
+                            {
+                                selectedChannelMembers &&
+                                selectedChannelMembers.map( member => (
+                                    <Member
+                                        key={member.id}
+                                    >
+                                        <div>
+                                            <img src={member.avatar || "https://github.com/cvitorandrade.png"} alt="" />
+                                        </div>
+                                        <p>
+                                            { member.name }
+                                        </p>
 
-                            <Member>
-                                <div>
-                                    <img src={nellieFrancis} alt="" />
-                                </div>
-                                <p>
-                                    Nellie Francis
-                                </p>
-                            </Member>
-
-                            <Member>
-                                <div>
-                                    <img src={denzelBarret} alt="" />
-                                </div>
-                                <p>
-                                    Denzel Barret
-                                </p>
-                            </Member>
-
-                            <Member>
-                                <div>
-                                    <img src={shaunnaFirth} alt="" />
-                                </div>
-                                <p>
-                                    Shaunna Firth
-                                </p>
-                            </Member>
-
-                            <Member>
-                                <div>
-                                    <img src={annalieseHuynh} alt="" />
-                                </div>
-                                <p>
-                                    Annaliese Huynh
-                                </p>
-                            </Member>
+                                    </Member>
+                                ))
+                            }
                         </ul>
 
                     </ChannelMembers>
