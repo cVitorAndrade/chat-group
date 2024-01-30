@@ -39,11 +39,36 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:3333");
 
+import { api } from "../services/api";
+
 
 export function Layout ( { children }) {
     const [viewAllChannels, setViewAllChannels] = useState(true);
     const [viewUserActions, setViewUserActions] = useState(false);
     const [viewCreateChannelModal, setViewCreateChannelModal] = useState(false);
+
+    const [newChannelName, setNewChannelName] = useState("");
+    const [newChannelDescription, setNewChannelDescription] = useState("");
+
+    const handleCreateChannel = () => {
+        if ( newChannelName.trim() === "" || newChannelDescription.trim() === "" ) { 
+            return alert("It is necessary to fill in all fields");
+        }
+
+        api.post("/channels/1", { name: newChannelName, description: newChannelDescription })
+        .then(() => {
+            closeModal();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    const closeModal = () => {
+        setViewCreateChannelModal(false)
+        setNewChannelName("");
+        setNewChannelDescription("");
+    }
 
     useEffect(() => {
         socket.on("teste", (data) => console.log(data));
@@ -283,19 +308,27 @@ export function Layout ( { children }) {
                         <input
                             type="text"
                             placeholder="Channel name"
+                            value={ newChannelName }
+                            onChange={ e => setNewChannelName(e.target.value) }
                         />
                     </div>
 
-                    <textarea placeholder="Channel description"></textarea>
+                    <textarea 
+                        placeholder="Channel description"
+                        value={ newChannelDescription }
+                        onChange={ e => setNewChannelDescription(e.target.value) }
+                    ></textarea>
 
                     <div className="buttons">
                         <button
-                            onClick={ () => setViewCreateChannelModal(false) }
+                            onClick={ closeModal }
                         >
                             Cancel
                         </button>
 
-                        <button>
+                        <button
+                            onClick={ handleCreateChannel }
+                        >
                             Save
                         </button>
                     </div>
