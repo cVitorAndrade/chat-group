@@ -1,21 +1,22 @@
-import { Container,
-        SideBar, 
-        Chat, 
-        Header, 
-        AllChannels,
-        Search,
-        ChannelList,
-        Channel,
-        Profile,
-        SelectedChannel,
-        Back,
-        ChannelDescription,
-        ChannelMembers,
-        Member,
-        UserActions,
-        Action,
-        CreateChannelModal
-    } from "./styles";
+import {
+    Container,
+    SideBar,
+    Chat,
+    Header,
+    AllChannels,
+    Search,
+    ChannelList,
+    Channel,
+    Profile,
+    SelectedChannel,
+    Back,
+    ChannelDescription,
+    ChannelMembers,
+    Member,
+    UserActions,
+    Action,
+    CreateChannelModal
+} from "./styles";
 
 import { LuPlus } from "react-icons/lu";
 import { MdOutlineSearch } from "react-icons/md";
@@ -42,7 +43,7 @@ const socket = io("http://localhost:3333");
 import { api } from "../services/api";
 
 
-export function Layout ( { children }) {
+export function Layout({ children }) {
     const [viewAllChannels, setViewAllChannels] = useState(true);
     const [viewUserActions, setViewUserActions] = useState(false);
     const [viewCreateChannelModal, setViewCreateChannelModal] = useState(false);
@@ -50,18 +51,27 @@ export function Layout ( { children }) {
     const [newChannelName, setNewChannelName] = useState("");
     const [newChannelDescription, setNewChannelDescription] = useState("");
 
+    const [myChannels, setMyChannels] = useState([]);
+
+    const handleGetMyChannels = () => {
+        api.get("my_channels/1").then(({ data }) => {
+            const { channels } = data;
+            setMyChannels(channels);
+        })
+    }
+
     const handleCreateChannel = () => {
-        if ( newChannelName.trim() === "" || newChannelDescription.trim() === "" ) { 
+        if (newChannelName.trim() === "" || newChannelDescription.trim() === "") {
             return alert("It is necessary to fill in all fields");
         }
 
         api.post("/channels/1", { name: newChannelName, description: newChannelDescription })
-        .then(() => {
-            closeModal();
-        })
-        .catch(error => {
-            console.log(error);
-        });
+            .then(() => {
+                closeModal();
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     const closeModal = () => {
@@ -70,20 +80,24 @@ export function Layout ( { children }) {
         setNewChannelDescription("");
     }
 
+    // useEffect(() => {
+    //     socket.on("teste", (data) => console.log(data));
+
+    // }, [])
+
     useEffect(() => {
-        socket.on("teste", (data) => console.log(data));
+        handleGetMyChannels();
+    }, []);
 
-    }, [])
-
-    return(
+    return (
         <Container>
             <SideBar>
-                <AllChannels className={ viewAllChannels ? "" : "none" }>
+                <AllChannels className={viewAllChannels ? "" : "none"}>
                     <Header>
                         <span>Channels</span>
-                        <div 
+                        <div
                             className="new-chat"
-                            onClick={ () => setViewCreateChannelModal(true) }
+                            onClick={() => setViewCreateChannelModal(true)}
                         >
                             <LuPlus
                                 size={15}
@@ -109,65 +123,42 @@ export function Layout ( { children }) {
                     </Search>
 
                     <ChannelList>
-                        <Channel
-                            onClick={ () => setViewAllChannels(false) }
-                        >
-                            <div>
-                                <p>
-                                    FD
-                                </p>
-                            </div>
-                            <p>
-                                front-end developers
-                            </p>
-                        </Channel>
-                        <Channel>
-                            <div>
-                                <p>
-                                    R
-                                </p>
-                            </div>
-                            <p>
-                                random
-                            </p>
-                        </Channel>
-                        <Channel>
-                            <div>
-                                <p>
-                                    b
-                                </p>
-                            </div>
-                            <p>
-                                back-end
-                            </p>
-                        </Channel>
-                        <Channel>
-                            <div>
-                                <p>
-                                    ca
-                                </p>
-                            </div>
-                            <p>
-                                cats and dogs
-                            </p>
-                        </Channel>
-                        <Channel>
-                            <div>
-                                <p>
-                                    w
-                                </p>
-                            </div>
-                            <p>
-                                welcome
-                            </p>
-                        </Channel>
-                    
+
+                        {
+                            myChannels &&
+                            myChannels.map(myChannel => {
+                                let channelAbbreviation = "";
+                                if ( myChannel.name.split(" ").length === 1 ) {
+                                    channelAbbreviation = myChannel.name[0];
+                                } else {
+                                    channelAbbreviation = `${myChannel.name.split(" ")[0][0]}${myChannel.name.split(" ")[1][0]}`
+                                }
+
+                                return (
+                                    <Channel
+                                        key={myChannel.id}
+                                        onClick={ () => setViewAllChannels(false) }
+                                    >
+                                        <div>
+                                            <p>
+                                                {channelAbbreviation}
+                                            </p>
+                                        </div>
+                                        <p>
+                                            {myChannel.name}
+                                        </p>
+
+                                    </Channel>
+                                )
+                            })
+                        }
+
                     </ChannelList>
                 </AllChannels>
 
-                <SelectedChannel className={ viewAllChannels ? "none" : "" }>
+                <SelectedChannel className={viewAllChannels ? "none" : ""}>
                     <Back
-                        onClick={ () => setViewAllChannels(true) }
+                        onClick={() => setViewAllChannels(true)}
                     >
                         <div>
                             <MdArrowBackIosNew
@@ -247,9 +238,9 @@ export function Layout ( { children }) {
                 <Profile>
                     <div>
                         <div className="avatar">
-                            <img 
-                                src={xanteNeal} 
-                                alt="" 
+                            <img
+                                src={xanteNeal}
+                                alt=""
                             />
                         </div>
                         <p>Xanthe Neal</p>
@@ -257,10 +248,10 @@ export function Layout ( { children }) {
 
                     <MdKeyboardArrowDown
                         size={20}
-                        onClick={ () => setViewUserActions(prevValue => !prevValue)}
+                        onClick={() => setViewUserActions(prevValue => !prevValue)}
                     />
 
-                    <UserActions className={ viewUserActions ? "" : "none"}>
+                    <UserActions className={viewUserActions ? "" : "none"}>
                         <Action>
                             <FaCircleUser
                                 size={15}
@@ -293,11 +284,11 @@ export function Layout ( { children }) {
                     </UserActions>
 
                 </Profile>
-                
+
             </SideBar>
 
-            <CreateChannelModal 
-                className={ viewCreateChannelModal ? "" : "none"}
+            <CreateChannelModal
+                className={viewCreateChannelModal ? "" : "none"}
             >
                 <div>
                     <h2>
@@ -308,26 +299,26 @@ export function Layout ( { children }) {
                         <input
                             type="text"
                             placeholder="Channel name"
-                            value={ newChannelName }
-                            onChange={ e => setNewChannelName(e.target.value) }
+                            value={newChannelName}
+                            onChange={e => setNewChannelName(e.target.value)}
                         />
                     </div>
 
-                    <textarea 
+                    <textarea
                         placeholder="Channel description"
-                        value={ newChannelDescription }
-                        onChange={ e => setNewChannelDescription(e.target.value) }
+                        value={newChannelDescription}
+                        onChange={e => setNewChannelDescription(e.target.value)}
                     ></textarea>
 
                     <div className="buttons">
                         <button
-                            onClick={ closeModal }
+                            onClick={closeModal}
                         >
                             Cancel
                         </button>
 
                         <button
-                            onClick={ handleCreateChannel }
+                            onClick={handleCreateChannel}
                         >
                             Save
                         </button>

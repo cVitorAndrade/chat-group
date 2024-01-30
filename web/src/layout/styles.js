@@ -121,7 +121,20 @@ export const ChannelList = styled.ul`
     flex-direction: column;
     gap: 2rem;
 
+    max-height: 60vh;
+
     padding: 0 3.2rem;
+
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: .6rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: ${ ({ theme }) => theme.COLORS.GRAY_700};
+        border-radius: 4px; 
+    }
 `;
 
 export const Channel = styled.li`
