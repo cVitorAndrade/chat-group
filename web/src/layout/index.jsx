@@ -13,7 +13,8 @@ import { Container,
         ChannelMembers,
         Member,
         UserActions,
-        Action
+        Action,
+        CreateChannelModal
     } from "./styles";
 
 import { LuPlus } from "react-icons/lu";
@@ -22,7 +23,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { MdArrowBackIosNew } from "react-icons/md";
 
-import { FaCircleUser } from "react-icons/fa6";
+import { FaCircleUser, FaLeaf } from "react-icons/fa6";
 import { PiMountainsBold } from "react-icons/pi";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
@@ -32,11 +33,22 @@ import shaunnaFirth from "./assets/Shaunna-Firth.jpg";
 import annalieseHuynh from "./assets/Annaliese-Huynh.jpg";
 import denzelBarret from "./assets/Denzel-Barrett.jpg";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3333");
+
 
 export function Layout ( { children }) {
     const [viewAllChannels, setViewAllChannels] = useState(true);
     const [viewUserActions, setViewUserActions] = useState(false);
+    const [viewCreateChannelModal, setViewCreateChannelModal] = useState(false);
+
+    useEffect(() => {
+        socket.on("teste", (data) => console.log(data));
+
+    }, [])
 
     return(
         <Container>
@@ -44,7 +56,10 @@ export function Layout ( { children }) {
                 <AllChannels className={ viewAllChannels ? "" : "none" }>
                     <Header>
                         <span>Channels</span>
-                        <div className="new-chat">
+                        <div 
+                            className="new-chat"
+                            onClick={ () => setViewCreateChannelModal(true) }
+                        >
                             <LuPlus
                                 size={15}
                             />
@@ -255,6 +270,30 @@ export function Layout ( { children }) {
                 </Profile>
                 
             </SideBar>
+
+            <CreateChannelModal 
+                className={ viewCreateChannelModal ? "" : "none"}
+                onClick={ () => setViewCreateChannelModal(false) }
+            >
+                <div>
+                    <h2>
+                        NEW CHANNEL
+                    </h2>
+
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Channel name"
+                        />
+                    </div>
+
+                    <textarea placeholder="Channel description"></textarea>
+
+                    <button>
+                        Save
+                    </button>
+                </div>
+            </CreateChannelModal>
 
             <Chat>
             </Chat>
