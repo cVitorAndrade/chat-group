@@ -51,7 +51,7 @@ class UsersController {
 
         Promise.all([ addWelcomeToMyChannels(), createWelcomeMessage() ])
         .catch( error => {
-            console.log(error);
+            throw new Error(error);
         })
 
         const io = getIo();
