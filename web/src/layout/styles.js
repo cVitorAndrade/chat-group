@@ -489,23 +489,33 @@ export const CreateChannelModal = styled.div`
             color: ${ ({ theme }) => theme.COLORS.GRAY_800};
         }
 
-        button {
-            padding: .7rem 3rem;
-
-            font-weight: 500;
-            background-color: ${ ({ theme }) => theme.COLORS.BLUE_900};
-
-            border-radius: .8rem;
-
+        .buttons {
+            display: flex;
+            gap: 1rem;
             align-self: flex-end;
 
-            border: none;
+            button:first-child {
+                background-color: ${ ({ theme }) => theme.COLORS.RED_900};
+            }
 
-            transition: filter .3s cubic-bezier(0.47, 0, 0.745, 0.715);
-            
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.7);
+            button {
+                padding: .7rem 3rem;
+
+                font-weight: 500;
+                background-color: ${ ({ theme }) => theme.COLORS.BLUE_900};
+
+                border-radius: .8rem;
+
+                align-self: flex-end;
+
+                border: none;
+
+                transition: filter .3s cubic-bezier(0.47, 0, 0.745, 0.715);
+                
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.7);
+                }
             }
         }
     }

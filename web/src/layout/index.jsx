@@ -273,7 +273,6 @@ export function Layout ( { children }) {
 
             <CreateChannelModal 
                 className={ viewCreateChannelModal ? "" : "none"}
-                onClick={ () => setViewCreateChannelModal(false) }
             >
                 <div>
                     <h2>
@@ -289,9 +288,17 @@ export function Layout ( { children }) {
 
                     <textarea placeholder="Channel description"></textarea>
 
-                    <button>
-                        Save
-                    </button>
+                    <div className="buttons">
+                        <button
+                            onClick={ () => setViewCreateChannelModal(false) }
+                        >
+                            Cancel
+                        </button>
+
+                        <button>
+                            Save
+                        </button>
+                    </div>
                 </div>
             </CreateChannelModal>
 
