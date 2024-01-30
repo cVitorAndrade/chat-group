@@ -1,6 +1,7 @@
 const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
 const { hash } = require("bcryptjs");
+const { getIo } = require("../socket");
 
 class UsersController {
     async create (request, response) {
@@ -16,7 +17,7 @@ class UsersController {
         const [user_id] = await knex("users").insert({
             name,
             email,
-            password
+            password: hashedPassword
         });
 
         const [channel_id] = await knex("channels").insert({
@@ -50,8 +51,13 @@ class UsersController {
 
         Promise.all([ addWelcomeToMyChannels(), createWelcomeMessage() ])
         .catch( error => {
-            throw new AppError("Erro", 500);
+            console.log(error);
         })
+
+        const io = getIo();
+        
+
+        io.emit("teste", { data: "sim" })
 
         return response.status(201).json({
             status: "success",
