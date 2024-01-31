@@ -1,7 +1,6 @@
 import {
     Container,
     SideBar,
-    Chat,
     Header,
     AllChannels,
     Search,
@@ -18,6 +17,8 @@ import {
     CreateChannelModal
 } from "./styles";
 
+import { Chat } from "../components/Chat";
+
 import { LuPlus } from "react-icons/lu";
 import { MdOutlineSearch } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -29,10 +30,6 @@ import { PiMountainsBold } from "react-icons/pi";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
 import xanteNeal from "./assets/Xanthe-Neal.jpg";
-import nellieFrancis from "./assets/Nellie-Francis.jpg";
-import shaunnaFirth from "./assets/Shaunna-Firth.jpg";
-import annalieseHuynh from "./assets/Annaliese-Huynh.jpg";
-import denzelBarret from "./assets/Denzel-Barrett.jpg";
 
 import { useEffect, useState } from "react";
 
@@ -105,20 +102,37 @@ export function Layout({ children }) {
 
     return (
         <Container>
-            <SideBar>
-                <AllChannels className={viewAllChannels ? "" : "none"}>
-                    <Header>
-                        <span>Channels</span>
-                        <div
-                            className="new-chat"
-                            onClick={() => setViewCreateChannelModal(true)}
-                        >
-                            <LuPlus
-                                size={15}
-                            />
-                        </div>
-                    </Header>
 
+            <SideBar className="opened">
+                <Header 
+                    className={viewAllChannels ? "" : "none"}
+                >
+                    <span>Channels</span>
+                    <div
+                        className="new-chat"
+                        onClick={() => setViewCreateChannelModal(true)}
+                    >
+                        <LuPlus
+                            size={15}
+                        />
+                    </div>
+                </Header>
+            
+                <Back
+                    className={viewAllChannels ? "none" : ""}
+                    onClick={() => setViewAllChannels(true)}
+                >
+                    <div>
+                        <MdArrowBackIosNew
+                            size={24}
+                        />
+                    </div>
+    
+                    <p>All Channels</p>
+                </Back>
+                
+                <AllChannels 
+                    className={viewAllChannels ? "" : "none"}> 
                     <Search>
                         <div>
                             <label
@@ -170,18 +184,9 @@ export function Layout({ children }) {
                     </ChannelList>
                 </AllChannels>
 
-                <SelectedChannel className={viewAllChannels ? "none" : ""}>
-                    <Back
-                        onClick={() => setViewAllChannels(true)}
-                    >
-                        <div>
-                            <MdArrowBackIosNew
-                                size={24}
-                            />
-                        </div>
-
-                        <p>All Channels</p>
-                    </Back>
+                <SelectedChannel 
+                    className={viewAllChannels ? "none" : ""}>
+                    
 
                     <ChannelDescription>
                         <h2>

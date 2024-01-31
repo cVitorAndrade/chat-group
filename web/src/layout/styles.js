@@ -6,35 +6,61 @@ export const Container = styled.div`
 
     display: grid;
     grid-template-columns: 34rem auto;
+
     grid-template-areas: "side-bar chat";
+
 
     *.none {
         display: none;
+    }
+
+    @media (max-width: 740px) {
+        grid-template-columns: 1fr;
+        grid-template-areas: chat;
     }
 `;
 
 export const SideBar = styled.div`
     grid-area: side-bar;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: 6rem auto;
+    grid-template-columns: 1fr;
+    grid-template-areas: "side-bar-header" "content";
 
     background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
+
+
+    @media (max-width: 740px) {
+        position: fixed;
+        height: 100vh;
+        left: -100%;
+
+        transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        &.opened {
+            left: 0;
+        }
+    }
 `;
 
 export const AllChannels = styled.div`
     width: 100%;
+    grid-area: content;
+
 `;
 
 export const Header = styled.header`
     width: 100%;
+    grid-area: side-bar-header;
 
     padding: 1.8rem 3.2rem;
 
     display: flex;
     align-self: center;
     justify-content: space-between;
+
+    background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
 
     box-shadow: 0px 4px 4px 0px #00000040;
 
@@ -206,6 +232,8 @@ export const Profile = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    align-self: flex-end;
+
     padding: 1.5rem 3.2rem 1.8rem;
 
     position: relative;
@@ -313,6 +341,7 @@ export const Action = styled.div`
 
 export const SelectedChannel = styled.div`
     width: 100%;
+    grid-area: content;
 `;
 
 export const Back = styled.div`
@@ -321,6 +350,10 @@ export const Back = styled.div`
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    
+    grid-area: side-bar-header;
+
+    background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
     
     box-shadow: 0px 4px 4px 0px #00000040;
 
@@ -532,10 +565,4 @@ export const CreateChannelModal = styled.div`
             }
         }
     }
-`;
-
-export const Chat = styled.div`
-    grid-area: chat;
-    background-color: yellow;
-
 `;
