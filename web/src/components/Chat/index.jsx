@@ -23,6 +23,27 @@ export function Chat () {
         });
     }
 
+    const [messageText, setMessageText] = useState("");
+
+    const handleCreateMessage = () => {
+        if ( messageText.trim() === "" ) {
+            setMessageText("");
+            return;
+        }
+
+        api.post(`/messages?user_id=1&channel_id=${channel_id}`, { text: messageText })
+        .then( () => {
+            setMessageText("");
+            handleGetChannelMessages();
+        })
+    }
+
+    const handleKeyPress = (key) => {
+        if ( key === "Enter" ) {
+            handleCreateMessage();
+        }
+    }
+
     useEffect(() => {
         handleGetChannelMessages();
     }, [channel_id]);
@@ -68,9 +89,14 @@ export function Chat () {
                     <input 
                         type="text"
                         placeholder="Type a message here"
+                        onChange={ e => setMessageText(e.target.value) }
+                        value={ messageText }
+                        onKeyDown={ e => handleKeyPress(e.code)}
                     />
 
-                    <div>
+                    <div
+                        onClick={ handleCreateMessage }
+                    >
                         <IoMdSend 
                             size={18}
                         />
