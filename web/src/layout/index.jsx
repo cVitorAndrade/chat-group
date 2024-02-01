@@ -38,6 +38,7 @@ import io from "socket.io-client";
 const socket = io("http://localhost:3333");
 
 import { api } from "../services/api";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export function Layout({ children }) {
@@ -61,6 +62,8 @@ export function Layout({ children }) {
     const [selectedChannelName, setSelectedChannelName] = useState("");
     const [selectedChannelDescription, setSelectedChannelDescription] = useState("");
 
+    const navigate = useNavigate()
+
     const handleSelectChannel = (id) => {
         api.get(`/my_channels?channel_id=${id}`).then( ({ data }) => {
             const { name, description, members } = data;
@@ -68,6 +71,8 @@ export function Layout({ children }) {
             setSelectedChannelName(name);
             setSelectedChannelDescription(description);
             setViewAllChannels(false);
+
+            navigate(`/${id}`)
         });
     }
  
