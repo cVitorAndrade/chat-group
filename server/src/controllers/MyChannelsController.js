@@ -35,7 +35,7 @@ class MyChannelsController {
             name: member.name,
             email: member.email,
             avatar: member.avatar
-            
+
         }));
 
         response.json({
