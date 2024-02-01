@@ -13,8 +13,24 @@ import shaunaFirth from "../../assets/Shaunna-Firth.jpg"
 import xantheNeal from "../../assets/Xanthe-Neal.jpg"
 
 import { IoMdSend } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 export function Chat () {
+    const [messages, setMessages] = useState([]);
+
+    const handleGetChannelMessages = () => {
+        api.get("/messages/1")
+        .then( ({ data }) => {
+            const { messages } = data;
+            setMessages(messages);
+        });
+    }
+
+    useEffect(() => {
+        handleGetChannelMessages();
+    }, []);
+
     return(
         <Container>
             <Header>
@@ -136,358 +152,32 @@ export function Chat () {
                         </p>
                     </div>
                 </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
-                <Message>
-                    <div className="avatar">
-                        <img src={denzelBarrett} alt="" />
-                    </div>
-                    <div className="infos">
-                        <h4>
-                            Denzel Barrett
-                            <span>
-                                today at 2:39 PM
-                            </span>
-                        </h4>
-                        <p>
-                            Aenean tempus nibh vel est lobortis euismod. Vivamus laoreet viverra nunc 🐶
-                        </p>
-                    </div>
-                </Message>
+
+                {
+                    messages && 
+                    messages.map( message => (
+                        <Message
+                            key={message.id}
+                        >
+                            <div className="avatar">
+                                <img src={message.avatar || "https://github.com/cvitorandrade.png"} alt="" />
+                            </div>
+                            <div className="infos">
+                                <h4>
+                                    Denzel Barrett
+                                    <span>
+                                        { message.created_at }
+                                    </span>
+                                </h4>
+                                <p>
+                                    { message.text }
+                                </p>
+                            </div>
+
+                        </Message>
+                    ))
+                }
+                
                 
             </Content>
 

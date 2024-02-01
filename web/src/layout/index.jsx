@@ -317,8 +317,7 @@ export function Layout({ children }) {
                 </div>
             </CreateChannelModal>
 
-            <Chat>
-            </Chat>
+            { children }
 
         </Container>
     )
