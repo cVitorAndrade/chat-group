@@ -2,15 +2,17 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     height: 100vh;
+
+    background-color: ${ ({ theme }) => theme.COLORS.BLACK_700};
+
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 6rem auto;
-    grid-template-areas: "chat-header" "content";
-`
+    grid-template-rows: 6rem auto 9rem;
+    grid-template-areas: "chat-header" "content" "send-message";
+`;
 
 export const Header = styled.header`
     width: 100%;
-    background-color: green;
 
     grid-area: chat-header;
 
@@ -32,6 +34,81 @@ export const Header = styled.header`
 
 export const Content = styled.div`
     height: 100%;
-    background-color: blueviolet;
     grid-area: content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3.8rem;
+
+    overflow-y: auto;
+
+    padding-left: 7rem;
+    padding-right: 7.6rem;
+
+    justify-content: end;
 `;
+
+
+export const Message = styled.div`
+    display: flex;
+    gap: 2.8rem;
+
+    .avatar {
+        width: 4.2rem;
+        height: 4.2rem;
+        
+        border-radius: .7rem;
+
+        
+        img {
+            width: inherit;
+            height: inherit;
+            
+            object-fit: cover;
+            
+            border-radius: inherit;
+        }
+    }
+
+    .infos {
+        display: flex;
+        flex-direction: column;
+        gap: .8rem;
+
+        h4 {
+            font-size: 1.8rem;
+            font-weight: 700;
+
+            line-height: 2.4rem;
+
+            color: ${ ({ theme }) => theme.COLORS.GRAY_800};
+
+            span {
+                font-size: 1.4rem;
+                font-weight: 500;
+
+                line-height: 2rem;
+
+                margin-left: .8rem;
+            }
+        }
+
+        p {
+            font-size: 1.8rem;
+            font-weight: 500;
+
+            line-height: 2.4rem;
+
+            color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+        }
+    }
+`;
+
+export const SendMessage = styled.div`
+    grid-area: send-message;
+    background-color: red;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`

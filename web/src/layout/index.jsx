@@ -25,11 +25,11 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 import { MdArrowBackIosNew } from "react-icons/md";
 
-import { FaCircleUser, FaLeaf } from "react-icons/fa6";
+import { FaCircleUser } from "react-icons/fa6";
 import { PiMountainsBold } from "react-icons/pi";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
-import xanteNeal from "./assets/Xanthe-Neal.jpg";
+import xanteNeal from "../assets/Xanthe-Neal.jpg";
 
 import { useEffect, useState } from "react";
 
@@ -103,7 +103,7 @@ export function Layout({ children }) {
     return (
         <Container>
 
-            <SideBar className="opened">
+            <SideBar className="">
                 <Header 
                     className={viewAllChannels ? "" : "none"}
                 >
