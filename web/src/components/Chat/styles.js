@@ -7,7 +7,7 @@ export const Container = styled.div`
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 6rem auto 9rem;
+    grid-template-rows: 6rem auto 14rem;
     grid-template-areas: "chat-header" "content" "send-message";
 `;
 
@@ -106,9 +106,66 @@ export const Message = styled.div`
 
 export const SendMessage = styled.div`
     grid-area: send-message;
-    background-color: red;
+
+    padding: 5rem 7rem 4rem;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+
+    > div {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+
+        background-color: ${ ({ theme }) => theme.COLORS.GRAY_600};
+
+        padding: 0 .8rem 0 1.8rem;
+
+        border-radius: .8rem;
+
+        input {
+            width: 100%;
+
+            background: none;
+            border: none;
+            outline: none;
+
+            color: ${ ({ theme }) => theme.COLORS.WHITE_900};
+
+            font-size: 1.5rem;
+            font-weight: 500;
+
+            &::placeholder {
+                color: ${ ({ theme }) => theme.COLORS.GRAY_800};
+
+                font-size: 1.4rem;
+                font-weight: 500;
+
+                line-height: 2rem;
+                
+            }
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 1rem 1.1rem;
+
+            border-radius: .8rem;
+
+            background-color: ${ ({ theme }) => theme.COLORS.BLUE_900};
+
+            color: ${ ({ theme }) => theme.COLORS.WHITE_900};
+
+            transition: filter .3s cubic-bezier(0.19, 1, 0.22, 1);
+
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.9);
+            }
+
+        }
+    }
 `

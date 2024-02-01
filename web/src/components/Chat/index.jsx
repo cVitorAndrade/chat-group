@@ -12,6 +12,8 @@ import denzelBarrett from "../../assets/Denzel-Barrett.jpg"
 import shaunaFirth from "../../assets/Shaunna-Firth.jpg"
 import xantheNeal from "../../assets/Xanthe-Neal.jpg"
 
+import { IoMdSend } from "react-icons/io";
+
 export function Chat () {
     return(
         <Container>
@@ -138,7 +140,19 @@ export function Chat () {
             </Content>
 
             <SendMessage>
-                
+                <div>
+                    <input 
+                        type="text"
+                        placeholder="Type a message here"
+                    />
+
+                    <div>
+                        <IoMdSend 
+                            size={18}
+                        />
+                    </div>
+
+                </div>
             </SendMessage>
 
         </Container>
