@@ -10,12 +10,18 @@ function AuthProvider ({ children }) {
         try {
             
             const response = await api.post("/sessions", { email, password });
-            const { user, token } = response;
+            const { user, token } = response.data;
     
             localStorage.setItem("@chat-group:user", JSON.stringify(user));
             localStorage.setItem("@chat-group:token", token);
     
             api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+            setData({
+                token,
+                user
+            });
+            
         } catch (error) {
             if ( error.response ) {
                 return alert(error.response.data.message);
