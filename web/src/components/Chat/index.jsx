@@ -67,7 +67,7 @@ export function Chat () {
                             </div>
                             <div className="infos">
                                 <h4>
-                                    Denzel Barrett
+                                    {message.name}
                                     <span>
                                         { message.created_at }
                                     </span>

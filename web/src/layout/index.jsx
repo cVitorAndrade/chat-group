@@ -84,6 +84,7 @@ export function Layout({ children }) {
         api.post("/channels/1", { name: newChannelName, description: newChannelDescription })
             .then(() => {
                 closeModal();
+                handleGetMyChannels();
             })
             .catch(error => {
                 console.log(error);
