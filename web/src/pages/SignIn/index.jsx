@@ -1,22 +1,17 @@
-import { Background } from "../../components/Background";
-import { Button } from "../../components/Button";
-import { Input } from "../../components/Input";
 import { Container } from "./styles";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
+import { Background } from "../../components/Background";
 
-export function SignUp () {
+export function SignIn () {
     return (
         <Container>
             <main>
 
                 <form>
-                    <h2>Get Started Now</h2>    
+                    <h2>Welcome Back!</h2>
 
                     <div>
-                        <Input
-                            title="Name"
-                            placeholder="Enter your name"
-                            type="text"
-                        />
                         <Input
                             title="Email address"
                             placeholder="Enter your email"
@@ -30,20 +25,19 @@ export function SignUp () {
                     </div>
 
                     <Button 
-                        title="Signup"
+                        title="Login"
                     />
 
                     <p>
-                        Have an account? 
+                        Don’t have an account?  
                         <a>
-                            Sign In
+                            Sign Up
                         </a>
                     </p>
                 </form>
             </main>
 
             <Background />
-
         </Container>
     )
 }

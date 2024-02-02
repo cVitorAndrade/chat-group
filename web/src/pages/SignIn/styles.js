@@ -8,7 +8,6 @@ export const Container = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "content background";
 
-
     > main {
         grid-area: content;
 
@@ -17,12 +16,13 @@ export const Container = styled.div`
         justify-content: center;
         align-items: center;
 
+        
         form {
             width: min(90%, 50rem);
             display: flex;
             flex-direction: column;
             gap: 6rem;
-
+            
             h2 {
                 font-size: 3.2rem;
                 font-weight: 600;
