@@ -54,10 +54,6 @@ class UsersController {
             throw new Error(error);
         })
 
-        const io = getIo();
-        
-
-        io.emit("teste", { data: "sim" })
 
         return response.status(201).json({
             status: "success",
