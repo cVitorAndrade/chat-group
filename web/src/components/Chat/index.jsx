@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 
 export function Chat () {
     const [messages, setMessages] = useState([]);
+    const [channelName, setChannelName] = useState("");
     const { channel_id } = useParams();
 
     const handleGetChannelMessages = () => {
@@ -31,7 +32,7 @@ export function Chat () {
             return;
         }
 
-        api.post(`/messages?user_id=1&channel_id=${channel_id}`, { text: messageText })
+        api.post(`/messages/${channel_id}`, { text: messageText })
         .then( () => {
             setMessageText("");
             handleGetChannelMessages();
@@ -44,14 +45,26 @@ export function Chat () {
         }
     }
 
+    const handleGetChannel = () => {
+        api.get(`/my_channels/${channel_id}`)
+        .then(({ data }) => {
+            const { name } = data;
+            setChannelName(name);
+        })
+        .catch( error => {
+            console.log(error);
+        });
+    }
+
     useEffect(() => {
+        handleGetChannel();
         handleGetChannelMessages();
     }, [channel_id]);
 
     return(
         <Container>
             <Header>
-                <h1>front-end developers</h1>
+                <h1>{ channelName }</h1>
             </Header>
 
             <Content>

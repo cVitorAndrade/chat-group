@@ -17,8 +17,6 @@ import {
     CreateChannelModal
 } from "./styles";
 
-import { Chat } from "../components/Chat";
-
 import { LuPlus } from "react-icons/lu";
 import { MdOutlineSearch } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -38,10 +36,13 @@ import io from "socket.io-client";
 const socket = io("http://localhost:3333");
 
 import { api } from "../services/api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "../hooks/auth";
 
 export function Layout({ children }) {
+    const { user } = useAuth();
+
     const [viewAllChannels, setViewAllChannels] = useState(true);
     const [viewUserActions, setViewUserActions] = useState(false);
     const [viewCreateChannelModal, setViewCreateChannelModal] = useState(false);
@@ -52,7 +53,7 @@ export function Layout({ children }) {
     const [myChannels, setMyChannels] = useState([]);
 
     const handleGetMyChannels = () => {
-        api.get("my_channels/1").then(({ data }) => {
+        api.get("/my_channels").then(({ data }) => {
             const { channels } = data;
             setMyChannels(channels);
         })
@@ -65,7 +66,7 @@ export function Layout({ children }) {
     const navigate = useNavigate()
 
     const handleSelectChannel = (id) => {
-        api.get(`/my_channels?channel_id=${id}`).then( ({ data }) => {
+        api.get(`/my_channels/${id}`).then( ({ data }) => {
             const { name, description, members } = data;
             setSelectedChannelMembers(members);
             setSelectedChannelName(name);
@@ -81,7 +82,7 @@ export function Layout({ children }) {
             return alert("It is necessary to fill in all fields");
         }
 
-        api.post("/channels/1", { name: newChannelName, description: newChannelDescription })
+        api.post("/channels", { name: newChannelName, description: newChannelDescription })
             .then(() => {
                 closeModal();
                 handleGetMyChannels();
@@ -240,7 +241,7 @@ export function Layout({ children }) {
                                 alt=""
                             />
                         </div>
-                        <p>Xanthe Neal</p>
+                        <p>{ user.name }</p>
                     </div>
 
                     <MdKeyboardArrowDown
