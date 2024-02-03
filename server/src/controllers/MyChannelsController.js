@@ -1,4 +1,6 @@
 const knex = require("../database/knex");
+const { getIo } = require("../socket");
+const io = getIo()
 
 class MyChannelsController {
     async index (request, response) {
@@ -26,7 +28,9 @@ class MyChannelsController {
 
         const membersInChannel = allUsers
         .filter( user => {
-            const [channelMember] = allMyChannels.filter(myChannelInfo => myChannelInfo.user_id === user.id && myChannelInfo.id === myChannel.id);
+
+            const [channelMember] = allMyChannels.filter(myChannelInfo => myChannelInfo.user_id === user.id && myChannelInfo.channel_id === myChannel.id);
+            
             return channelMember
         })
         .map( member => ({
@@ -36,6 +40,7 @@ class MyChannelsController {
             avatar: member.avatar
 
         }));
+
 
         response.json({
             ...myChannel,
