@@ -5,6 +5,10 @@ const channelsRoutes = Router();
 const ChannelsController = require("../controllers/ChannelsController");
 const channelsController = new ChannelsController();
 
-channelsRoutes.post("/:user_id", channelsController.create);
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
+
+channelsRoutes.use(ensureAuthenticated);
+
+channelsRoutes.post("/", channelsController.create);
 
 module.exports = channelsRoutes;

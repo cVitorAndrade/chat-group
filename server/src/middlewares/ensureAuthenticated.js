@@ -9,7 +9,7 @@ function ensureAuthenticated (request, response, next) {
         throw new AppError("Token not provided");
     }
 
-    const [token] = authHeader.split(" ")[1];
+    const [, token] = authHeader.split(" ");
 
     try {
         const { sub: user_id } = verify(token, authConfig.jwt.secrets)
@@ -20,7 +20,8 @@ function ensureAuthenticated (request, response, next) {
 
         return next();
         
-    } catch (error) {
+    } catch {
+        console.log(token)
         throw new AppError("Invalid Token");
     }
 }

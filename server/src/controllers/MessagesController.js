@@ -3,11 +3,12 @@ const knex = require("../database/knex");
 class MessagesController {
     async create (request, response) {
         const { text } = request.body;
-        const { user_id, channel_id } = request.query;
+        const { id } = request.user;
+        const { channel_id } = request.params;
 
         await knex("messages").insert({
             text,
-            user_id,
+            user_id: id,
             channel_id
         });
 

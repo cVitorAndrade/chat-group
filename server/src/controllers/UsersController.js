@@ -44,7 +44,7 @@ class UsersController {
                 
                 Enthusiastically,
                 cVitor Andrade`,
-                user_id,
+                user_id: 1,
                 channel_id,
             })
         }

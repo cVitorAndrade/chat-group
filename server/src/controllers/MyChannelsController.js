@@ -2,9 +2,9 @@ const knex = require("../database/knex");
 
 class MyChannelsController {
     async index (request, response) {
-        const { user_id } = request.params;
+        const { id } = request.user;
 
-        const myChannels = await knex("my_channels").where({ user_id });
+        const myChannels = await knex("my_channels").where({ user_id: id });
         const allChannels = await knex("channels");
 
         const channels = allChannels.filter( channel => {
@@ -18,7 +18,7 @@ class MyChannelsController {
     }
 
     async show (request, response) {
-        const { channel_id } = request.query;
+        const { channel_id } = request.params;
 
         const myChannel = await knex("channels").where({ id: channel_id }).first();
         const allMyChannels = await knex("my_channels");
@@ -26,8 +26,7 @@ class MyChannelsController {
 
         const membersInChannel = allUsers
         .filter( user => {
-            const [channelMember] = allMyChannels.filter(myChannelInfo => myChannelInfo.user_id === user.id);
-
+            const [channelMember] = allMyChannels.filter(myChannelInfo => myChannelInfo.user_id === user.id && myChannelInfo.id === myChannel.id);
             return channelMember
         })
         .map( member => ({

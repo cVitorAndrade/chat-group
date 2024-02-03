@@ -3,7 +3,7 @@ const knex = require("../database/knex");
 class ChannelsController {
     async create (request, response) {
         const { name, description } = request.body;
-        const { user_id } = request.params;
+        const { id } = request.user;
 
         const [channel_id] = await knex("channels").insert({
             name,
@@ -11,7 +11,7 @@ class ChannelsController {
         })
 
         await knex("my_channels").insert({
-            user_id,
+            user_id: id,
             channel_id
         })
 
