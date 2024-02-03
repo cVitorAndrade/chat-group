@@ -41,7 +41,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 
 export function Layout({ children }) {
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
+    const navigate = useNavigate()
 
     const [viewAllChannels, setViewAllChannels] = useState(true);
     const [viewUserActions, setViewUserActions] = useState(false);
@@ -62,8 +63,6 @@ export function Layout({ children }) {
     const [selectedChannelMembers, setSelectedChannelMembers] = useState([]);
     const [selectedChannelName, setSelectedChannelName] = useState("");
     const [selectedChannelDescription, setSelectedChannelDescription] = useState("");
-
-    const navigate = useNavigate()
 
     const handleSelectChannel = (id) => {
         api.get(`/my_channels/${id}`).then( ({ data }) => {
@@ -96,6 +95,11 @@ export function Layout({ children }) {
         setViewCreateChannelModal(false)
         setNewChannelName("");
         setNewChannelDescription("");
+    }
+
+    const handleSignOut = () => {
+        signOut();
+        navigate("/");
     }
 
     // useEffect(() => {
@@ -270,7 +274,11 @@ export function Layout({ children }) {
                             </span>
                         </Action>
 
-                        <Action className="logout">
+                        <Action 
+                            className="logout"
+                            onClick={ handleSignOut }
+                            
+                        >
                             <RiLogoutBoxRLine
                                 size={15}
                             />

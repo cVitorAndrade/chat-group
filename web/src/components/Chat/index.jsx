@@ -97,7 +97,7 @@ export function Chat () {
                 
             </Content>
 
-            <SendMessage>
+            <SendMessage id="down">
                 <div>
                     <input 
                         type="text"
