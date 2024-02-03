@@ -9,10 +9,16 @@ export const Container = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 6rem auto 9rem;
     grid-template-areas: "chat-header" "content" "send-message";
+
+    *.none {
+        display: none;
+    }
 `;
 
 export const Header = styled.header`
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 
     grid-area: chat-header;
 
@@ -29,6 +35,11 @@ export const Header = styled.header`
         line-height: 2.4rem;
 
         text-transform: uppercase;
+    }
+
+    > svg {
+        color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+        cursor: pointer;
     }
 `;
 
@@ -47,7 +58,6 @@ export const Content = styled.div`
     padding-bottom: 5rem;
     padding-top: 5rem;
 `;
-
 
 export const Message = styled.div`
     display: flex;
@@ -171,3 +181,98 @@ export const SendMessage = styled.div`
         }
     }
 `
+
+export const AddMemberModal = styled.div`
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, .4);
+
+    > div {
+        width: min(90%, 65rem);
+        padding: 3.5rem 3.8rem 2.2rem 4.4rem;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2.6rem;
+
+        background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
+
+        border-radius: 2.4rem;
+
+        h2,
+        button {
+            color: ${ ({ theme }) => theme.COLORS.WHITE_800};
+
+            font-size: 1.8rem;
+            font-weight: 700;
+
+            letter-spacing: -3.5%;
+
+            line-height: 2.4rem;
+        }
+
+        input {
+            padding: 1.2rem 1.5rem;
+            
+            background-color: ${ ({ theme }) => theme.COLORS.GRAY_600};
+
+            font-size: 1.8rem;
+            color: ${ ({ theme }) => theme.COLORS.WHITE_800};
+
+            border-radius: .8rem;
+
+            outline: none;
+            border: none;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        input::placeholder {
+            font-size: 1.8rem;
+            font-weight: 500;
+
+            line-height: 2.4rem;
+
+            letter-spacing: -3.5%;
+
+            color: ${ ({ theme }) => theme.COLORS.GRAY_800};
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            align-self: flex-end;
+
+            button:first-child {
+                background-color: ${ ({ theme }) => theme.COLORS.RED_900};
+            }
+
+            button {
+                padding: .7rem 3rem;
+
+                font-weight: 500;
+                background-color: ${ ({ theme }) => theme.COLORS.BLUE_900};
+
+                border-radius: .8rem;
+
+                align-self: flex-end;
+
+                border: none;
+
+                transition: filter .3s cubic-bezier(0.47, 0, 0.745, 0.715);
+                
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.7);
+                }
+            }
+        }
+    }
+`;

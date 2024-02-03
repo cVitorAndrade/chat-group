@@ -1,4 +1,5 @@
 import { 
+    AddMemberModal,
         Container, 
         Content, 
         Header, 
@@ -7,9 +8,15 @@ import {
     } from "./styles";
 
 import { IoMdSend } from "react-icons/io";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
+
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
+
+import io from "socket.io-client";
+
+const socket = io("http://localhost:3333");
 
 export function Chat () {
     const [messages, setMessages] = useState([]);
@@ -37,6 +44,7 @@ export function Chat () {
             setMessageText("");
             handleGetChannelMessages();
         })
+        .catch( error => console.log(error));
     }
 
     const handleKeyPress = (key) => {
@@ -56,15 +64,37 @@ export function Chat () {
         });
     }
 
+    const [viewModalAddUsers, setViewModalAddUsers] = useState(false)
+    const [newMemberEmail, setNewMemberEmail] = useState("");
+
+    const handleAddNewUser = () => {
+        api.post(`user_in_channel/${channel_id}`, { email: newMemberEmail })
+        .then(() => {
+            closeModal();
+        })
+        .catch(error => console.log(error));
+    }
+
+    const closeModal = () => {
+        setViewModalAddUsers(false);
+        setNewMemberEmail("");
+    }
+
     useEffect(() => {
         handleGetChannel();
         handleGetChannelMessages();
     }, [channel_id]);
 
+
     return(
         <Container>
             <Header>
                 <h1>{ channelName }</h1>
+                <AiOutlineUsergroupAdd 
+                    onClick={ () => setViewModalAddUsers(true)}
+                    size={30}
+                
+                />
             </Header>
 
             <Content>
@@ -97,7 +127,7 @@ export function Chat () {
                 
             </Content>
 
-            <SendMessage id="down">
+            <SendMessage>
                 <div>
                     <input 
                         type="text"
@@ -117,6 +147,39 @@ export function Chat () {
 
                 </div>
             </SendMessage>
+
+            <AddMemberModal
+                className={ viewModalAddUsers ? "" : "none" }
+            >
+                <div>
+                    <h2>
+                        ADD NEW MEMBER
+                    </h2>
+
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Enter user email"
+                            value={newMemberEmail}
+                            onChange={ e => setNewMemberEmail(e.target.value) }
+                        />
+                    </div>
+
+                    <div className="buttons">
+                        <button
+                            onClick={ closeModal }
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            onClick={ handleAddNewUser }
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </AddMemberModal>
 
         </Container>
     )

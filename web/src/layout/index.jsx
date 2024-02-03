@@ -68,6 +68,7 @@ export function Layout({ children }) {
         api.get(`/my_channels/${id}`).then( ({ data }) => {
             const { name, description, members } = data;
             setSelectedChannelMembers(members);
+            console.log(members);
             setSelectedChannelName(name);
             setSelectedChannelDescription(description);
             setViewAllChannels(false);
@@ -103,7 +104,7 @@ export function Layout({ children }) {
     }
 
     // useEffect(() => {
-    //     socket.on("teste", (data) => console.log(data));
+    //     socket.emit("show");
 
     // }, [])
 
