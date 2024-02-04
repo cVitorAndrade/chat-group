@@ -1,7 +1,6 @@
 const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
 const { hash } = require("bcryptjs");
-const { getIo } = require("../socket");
 
 class UsersController {
     async create (request, response) {

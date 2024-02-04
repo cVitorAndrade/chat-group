@@ -3,9 +3,12 @@ const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
 const { sign } = require("jsonwebtoken");
 const authConfig = require("../config/auth");
+const { getIo } = require("../socket");
 
 class SessionsController {
+    
     async create (request, response) {
+        const io = getIo();
         const { email, password } = request.body;
         const user = await knex("users").where({ email }).first();
 

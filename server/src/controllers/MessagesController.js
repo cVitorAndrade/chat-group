@@ -1,16 +1,20 @@
 const knex = require("../database/knex");
-
+const { getIo } = require("../socket");
 class MessagesController {
     async create (request, response) {
         const { text } = request.body;
         const { id } = request.user;
         const { channel_id } = request.params;
 
+        const io = getIo();
+
         await knex("messages").insert({
             text,
             user_id: id,
             channel_id
         });
+
+        io.to(`group-${channel_id}`).emit("newMessage", { channel_id });
 
         return response.status(201).json({
             status: "sucess",
@@ -21,6 +25,8 @@ class MessagesController {
     async index (request, response) {
         const { channel_id } = request.params;
         const allMessages = await knex("messages").where({ channel_id });
+
+        const io = getIo();
 
         const allUsers = await knex("users").select("id", "name", "avatar");
 

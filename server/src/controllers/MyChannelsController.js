@@ -1,6 +1,4 @@
 const knex = require("../database/knex");
-const { getIo } = require("../socket");
-const io = getIo()
 
 class MyChannelsController {
     async index (request, response) {

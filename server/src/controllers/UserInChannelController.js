@@ -19,7 +19,8 @@ class UserInChannelController {
 
         return response.json({
             status: "sucess",
-            message: "user added successfully"
+            message: "user added successfully",
+            user_id: user.id
         });
     }
 }
