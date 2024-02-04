@@ -1,11 +1,11 @@
 import { 
     AddMemberModal,
-        Container, 
-        Content, 
-        Header, 
-        Message, 
-        SendMessage
-    } from "./styles";
+    Container, 
+    Content, 
+    Header, 
+    Message, 
+    SendMessage
+} from "./styles";
 
 import { IoMdSend } from "react-icons/io";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
@@ -88,10 +88,11 @@ export function Chat () {
 
     useEffect(() => {
         socket.on("newMessage", (data) => {
-            channel_id = data.channel_id
-            handleGetChannelMessages();
+            if (data.channel_id === channel_id) {
+                handleGetChannelMessages();
+            }
         });
-      }, []);
+    }, [channel_id]);
 
 
     return(
