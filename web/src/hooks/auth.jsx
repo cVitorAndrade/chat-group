@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../services/api";
+import socket from "../socket";
 
 const AuthContext = createContext({});
+
 
 function AuthProvider ({ children }) {
     const [data, setData] = useState({});
@@ -17,6 +19,8 @@ function AuthProvider ({ children }) {
     
             api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
+            socket.emit("setID", { id: user.id });
+            
             setData({
                 token,
                 user

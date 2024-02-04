@@ -31,10 +31,6 @@ import xanteNeal from "../assets/Xanthe-Neal.jpg";
 
 import { useEffect, useState } from "react";
 
-import io from "socket.io-client";
-
-const socket = io("http://localhost:3333");
-
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
@@ -68,7 +64,6 @@ export function Layout({ children }) {
         api.get(`/my_channels/${id}`).then( ({ data }) => {
             const { name, description, members } = data;
             setSelectedChannelMembers(members);
-            console.log(members);
             setSelectedChannelName(name);
             setSelectedChannelDescription(description);
             setViewAllChannels(false);
@@ -102,11 +97,6 @@ export function Layout({ children }) {
         signOut();
         navigate("/");
     }
-
-    // useEffect(() => {
-    //     socket.emit("show");
-
-    // }, [])
 
     useEffect(() => {
         handleGetMyChannels();

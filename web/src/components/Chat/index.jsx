@@ -13,17 +13,16 @@ import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
+import socket from "../../socket";
 
-import io from "socket.io-client";
-
-const socket = io("http://localhost:3333");
 
 export function Chat () {
     const [messages, setMessages] = useState([]);
     const [channelName, setChannelName] = useState("");
-    const { channel_id } = useParams();
+    let { channel_id } = useParams();
 
     const handleGetChannelMessages = () => {
+        console.log(channel_id);
         api.get(`/messages/${channel_id}`)
         .then( ({ data }) => {
             const { messages } = data;
@@ -69,7 +68,7 @@ export function Chat () {
 
     const handleAddNewUser = () => {
         api.post(`user_in_channel/${channel_id}`, { email: newMemberEmail })
-        .then(() => {
+        .then(({ user_id }) => {
             closeModal();
         })
         .catch(error => console.log(error));
@@ -83,7 +82,16 @@ export function Chat () {
     useEffect(() => {
         handleGetChannel();
         handleGetChannelMessages();
+
+
     }, [channel_id]);
+
+    useEffect(() => {
+        socket.on("newMessage", (data) => {
+            channel_id = data.channel_id
+            handleGetChannelMessages();
+        });
+      }, []);
 
 
     return(
