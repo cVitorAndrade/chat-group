@@ -7,6 +7,7 @@ const AuthContext = createContext({});
 
 function AuthProvider ({ children }) {
     const [data, setData] = useState({});
+    const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
 
     async function signIn ({ email, password }) {
         try {
@@ -61,7 +62,10 @@ function AuthProvider ({ children }) {
         <AuthContext.Provider value={{
             signIn,
             signOut,
-            user: data.user
+            user: data.user,
+            sidebarIsOpen,
+            setSidebarIsOpen
+
         }} >
             { children }
         </AuthContext.Provider>

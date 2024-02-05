@@ -9,17 +9,20 @@ import {
 
 import { IoMdSend } from "react-icons/io";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import { IoMenu } from "react-icons/io5";
 
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
 import socket from "../../socket";
+import { useAuth } from "../../hooks/auth";
 
-
-export function Chat () {
+export function Chat ({ children }) {
     const [messages, setMessages] = useState([]);
     const [channelName, setChannelName] = useState("");
     let { channel_id } = useParams();
+
+    const { sidebarIsOpen, setSidebarIsOpen } = useAuth();
 
     const handleGetChannelMessages = () => {
         console.log(channel_id);
@@ -98,7 +101,14 @@ export function Chat () {
     return(
         <Container>
             <Header>
-                <h1>{ channelName }</h1>
+                <div>
+                    <IoMenu
+                        size={30}
+                        onClick={ () => setSidebarIsOpen(true)}
+                    />
+
+                    <h1>{ channelName }</h1>
+                </div>
                 <AiOutlineUsergroupAdd 
                     onClick={ () => setViewModalAddUsers(true)}
                     size={30}

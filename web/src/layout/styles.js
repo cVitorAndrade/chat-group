@@ -29,12 +29,38 @@ export const SideBar = styled.div`
     grid-template-areas: "side-bar-header" "content";
 
     background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
+    
+    
+    .close-icon {
+        background-color: ${ ({ theme }) => theme.COLORS.BLACK_900};
 
+        position: fixed;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 3.8rem;
+        height: 3.8rem;
+        top: 6%;
+        right: 6%;
+
+        border-radius: 1.2rem;
+
+        cursor: pointer;
+        color: ${ ({ theme }) => theme.COLORS.WHITE_900};
+    }
+
+    .none {
+        display: none;
+    }
 
     @media (max-width: 740px) {
         position: fixed;
         height: 100vh;
         left: -100%;
+
+        width: 80%;
 
         transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
@@ -53,6 +79,8 @@ export const AllChannels = styled.div`
 export const Header = styled.header`
     width: 100%;
     grid-area: side-bar-header;
+
+    position: relative;
 
     padding: 1.8rem 3.2rem;
 
@@ -340,7 +368,6 @@ export const Action = styled.div`
 `;
 
 export const SelectedChannel = styled.div`
-    width: 100%;
     grid-area: content;
 `;
 

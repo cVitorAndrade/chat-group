@@ -26,21 +26,36 @@ export const Header = styled.header`
 
     box-shadow: 0px 4px 4px 0px #00000040;
 
-    > h1 {
+    > div {
+        display: flex;
+        align-items: center;
 
-        color: ${ ({ theme }) => theme.COLORS.GRAY_900};
-        font-size: 1.8rem;
-        font-weight: 700;
+        gap: 1rem;
 
-        line-height: 2.4rem;
-
-        text-transform: uppercase;
+        h1 {
+    
+            color: ${ ({ theme }) => theme.COLORS.GRAY_900};
+            font-size: 1.8rem;
+            font-weight: 700;
+    
+            line-height: 2.4rem;
+    
+            text-transform: uppercase;
+        }
     }
 
-    > svg {
+    svg {
         color: ${ ({ theme }) => theme.COLORS.GRAY_900};
         cursor: pointer;
+        display: none;
     }
+
+    @media(max-width: 740px) {
+        svg {
+            display: block;
+        }
+    } 
+
 `;
 
 export const Content = styled.div`

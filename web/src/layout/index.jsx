@@ -17,6 +17,7 @@ import {
     CreateChannelModal
 } from "./styles";
 
+import { IoMdClose } from "react-icons/io";
 import { LuPlus } from "react-icons/lu";
 import { MdOutlineSearch } from "react-icons/md";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -37,7 +38,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/auth";
 
 export function Layout({ children }) {
-    const { user, signOut } = useAuth();
+    const { user, signOut, sidebarIsOpen, setSidebarIsOpen } = useAuth();
     const navigate = useNavigate()
 
     const [viewAllChannels, setViewAllChannels] = useState(true);
@@ -105,8 +106,8 @@ export function Layout({ children }) {
     return (
         <Container>
 
-            <SideBar className="">
-                <Header 
+            <SideBar className={ sidebarIsOpen ? "opened" : ""}>
+                <Header
                     className={viewAllChannels ? "" : "none"}
                 >
                     <span>Channels</span>
@@ -119,7 +120,6 @@ export function Layout({ children }) {
                         />
                     </div>
                 </Header>
-            
                 <Back
                     className={viewAllChannels ? "none" : ""}
                     onClick={() => setViewAllChannels(true)}
@@ -129,7 +129,6 @@ export function Layout({ children }) {
                             size={24}
                         />
                     </div>
-    
                     <p>All Channels</p>
                 </Back>
                 
@@ -282,6 +281,15 @@ export function Layout({ children }) {
 
                 </Profile>
 
+
+                <div 
+                    className={`close-icon ${sidebarIsOpen ? "" : "none"}`}
+                    onClick={ () => setSidebarIsOpen(false) }
+                >
+                    <IoMdClose 
+                        size={25}
+                    />
+                </div>
             </SideBar>
 
             <CreateChannelModal
